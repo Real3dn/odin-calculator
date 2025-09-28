@@ -15,6 +15,7 @@ function recieve(action)
     console.log(action)
     isNaN(action)?operation(action):numeric(action)
     action==='equals'?display(false):display(true)
+    if (action==='clear') result.textContent=0
 }
 
 function numeric(number)
@@ -35,12 +36,13 @@ function numeric(number)
 
 function operation(action)
 {
+    if (action==='clear') clearall()
+    else if (action==='equals') {evaluate();clearall();display(0)}
+    if (whole.num1!==undefined && whole.num2!==undefined) {evaluate();clearall(); whole.num1=whole.result}
     if (action==='add') whole.operation='+'
     else if (action==='sub') whole.operation='-'
     else if (action==='mul') whole.operation='*'
     else if (action==='divide') whole.operation='/'
-    else if (action==='equals') {evaluate();display(0)}
-    else if (action==='clear') clearall()
 }
 function evaluate()
 {
@@ -53,7 +55,6 @@ function evaluate()
     else if (whole.operation=='-'){whole.result= parseInt(whole.num1)-parseInt(whole.num2)}
     else if (whole.operation=='*'){whole.result= parseInt(whole.num1)*parseInt(whole.num2)}
     else if (whole.operation=='/'){whole.result= parseInt(whole.num1)/parseInt(whole.num2)}
-    clearall()
 }
 
 function clearall()
@@ -66,7 +67,7 @@ function clearall()
 
 function display(flag)
 {
-
+   
     if (flag==true){result.textContent=
     `${whole.num1==undefined?'':whole.num1}
      ${whole.operation==undefined?'':whole.operation}
